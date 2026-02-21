@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SinhalaEase – Learn Sinhala</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       SPLASH / HOME SCREEN
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-home" class="screen active">
+    <div class="home-hero">
+      <div class="logo-wrap">
+        <img src="assets/images/app-logo.png" alt="SinhalaEase logo" class="app-logo" onerror="this.style.display='none'" />
+        <h1 class="app-title">සිංහල<span>Ease</span></h1>
+        <p class="app-subtitle">Your journey to learning Sinhala starts here 🇱🇰</p>
+      </div>
+
+      <div class="stats-bar" id="home-stats">
+        <div class="stat-item"><span id="stat-streak">0</span><small>Day Streak 🔥</small></div>
+        <div class="stat-item"><span id="stat-words">0</span><small>Words Learned</small></div>
+        <div class="stat-item"><span id="stat-xp">0</span><small>XP Points ⭐</small></div>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-btn active" data-section="lessons" onclick="App.showSection('lessons')">
+          📚 Lessons
+        </button>
+        <button class="nav-btn" data-section="flashcards" onclick="App.showSection('flashcards')">
+          🃏 Flashcards
+        </button>
+        <button class="nav-btn" data-section="quiz" onclick="App.showSection('quiz')">
+          🧠 Quiz
+        </button>
+        <button class="nav-btn" data-section="review" onclick="App.showSection('review')">
+          🔄 SRS Review
+        </button>
+        <button class="nav-btn" data-section="progress" onclick="App.showSection('progress')">
+          📊 Progress
+        </button>
+        <button class="nav-btn" data-section="phrasebook" onclick="App.showSection('phrasebook')">
+          💬 Phrasebook
+        </button>
+        <button class="nav-btn" data-section="dictionary" onclick="App.showSection('dictionary')">
+          📖 Dictionary
+        </button>
+        <button class="nav-btn" data-section="alphabet" onclick="App.showSection('alphabet')">
+          🔤 Alphabet
+        </button>
+        <button class="nav-btn" data-section="about" onclick="App.showSection('about')">
+          ℹ️ About
+        </button>
+      </nav>
+    </div>
+
+    <!-- DAILY GOAL BANNER -->
+    <div class="daily-goal-bar">
+      <span>Daily Goal</span>
+      <div class="goal-progress-outer">
+        <div class="goal-progress-inner" id="goal-bar" style="width:0%"></div>
+      </div>
+      <span id="goal-text">0 / 10 words</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       LESSONS SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-lessons" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>📚 Lessons</h2>
+    </header>
+    <div class="section-intro">Choose a topic to begin your lesson</div>
+    <div id="lesson-grid" class="card-grid"></div>
+  </div>
+
+  <!-- LESSON DETAIL -->
+  <div id="screen-lesson-detail" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.showSection('lessons')">← Lessons</button>
+      <h2 id="lesson-detail-title">Lesson</h2>
+    </header>
+    <div id="lesson-word-list" class="word-list"></div>
+    <div class="lesson-actions">
+      <button class="btn-primary" onclick="App.startFlashcardsForLesson()">🃏 Practice Flashcards</button>
+      <button class="btn-secondary" onclick="App.startQuizForLesson()">🧠 Take Quiz</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       FLASHCARDS SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-flashcards" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.exitFlashcards()">← Back</button>
+      <h2>🃏 Flashcards</h2>
+      <span id="fc-counter" class="counter">1 / 1</span>
+    </header>
+
+    <div class="flashcard-wrap">
+      <div class="flashcard" id="flashcard" onclick="App.flipCard()">
+        <div class="flashcard-inner" id="flashcard-inner">
+          <div class="flashcard-front">
+            <div class="fc-category" id="fc-category"></div>
+            <img id="fc-image" class="fc-img" src="" alt="" onerror="this.style.display='none'" />
+            <div class="fc-word" id="fc-word"></div>
+            <div class="fc-romanized" id="fc-romanized"></div>
+            <div class="fc-hint">Tap to reveal</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="fc-translation" id="fc-translation"></div>
+            <div class="fc-example" id="fc-example"></div>
+            <button class="btn-audio" id="fc-audio-btn" onclick="App.playAudio(event)">🔊 Hear it</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-buttons">
+      <button class="btn-wrong" onclick="App.rateCard('hard')">😓 Hard</button>
+      <button class="btn-skip"  onclick="App.nextCard()">⏩ Skip</button>
+      <button class="btn-right" onclick="App.rateCard('easy')">😄 Easy</button>
+    </div>
+    <div class="fc-progress-bar-outer">
+      <div class="fc-progress-bar-inner" id="fc-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       QUIZ SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-quiz" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.exitQuiz()">← Back</button>
+      <h2>🧠 Quiz</h2>
+      <span id="quiz-score-badge" class="counter">Score: 0</span>
+    </header>
+
+    <!-- Quiz Topic Picker (shown before quiz starts) -->
+    <div id="quiz-picker" class="quiz-picker">
+      <h3>Choose a quiz topic</h3>
+      <div id="quiz-topic-grid" class="card-grid"></div>
+    </div>
+
+    <!-- Active Quiz -->
+    <div id="quiz-active" class="quiz-active hidden">
+      <div class="quiz-progress-row">
+        <span id="quiz-q-counter">Q 1 / 10</span>
+        <div class="quiz-prog-outer"><div class="quiz-prog-inner" id="quiz-prog-bar"></div></div>
+      </div>
+      <div class="quiz-type-badge" id="quiz-type-badge">Multiple Choice</div>
+      <div class="quiz-question-box">
+        <img id="quiz-img" class="quiz-img" src="" alt="" onerror="this.style.display='none'" />
+        <div class="quiz-question" id="quiz-question"></div>
+        <div class="quiz-subtext" id="quiz-subtext"></div>
+      </div>
+
+      <!-- Multiple choice options -->
+      <div id="quiz-options" class="quiz-options"></div>
+
+      <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+      <button id="quiz-next-btn" class="btn-primary hidden mt10" onclick="App.nextQuizQ()">Next →</button>
+    </div>
+
+    <!-- Quiz Results -->
+    <div id="quiz-results" class="quiz-results hidden">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <h3 id="result-title">Great job!</h3>
+      <p id="result-summary"></p>
+      <div class="result-xp" id="result-xp"></div>
+      <button class="btn-primary" onclick="App.retryQuiz()">Try Again</button>
+      <button class="btn-secondary" onclick="App.exitQuiz()">Back to Topics</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       SRS REVIEW SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-review" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>🔄 Spaced Repetition Review</h2>
+    </header>
+    <div id="srs-info" class="srs-info">
+      <p>Words due for review today: <strong id="srs-due-count">0</strong></p>
+      <p class="srs-desc">SRS revisits words at 1, 3, 7, 14 & 30-day intervals to lock them into memory.</p>
+      <button class="btn-primary" id="srs-start-btn" onclick="App.startSRS()">Start Review Session</button>
+    </div>
+    <div id="srs-active" class="hidden">
+      <!-- Reuses flashcard UI -->
+      <div class="flashcard-wrap">
+        <div class="flashcard" id="srs-card" onclick="App.flipSRS()">
+          <div class="flashcard-inner" id="srs-card-inner">
+            <div class="flashcard-front">
+              <div class="fc-word" id="srs-word"></div>
+              <div class="fc-romanized" id="srs-roman"></div>
+              <div class="fc-hint">Tap to reveal</div>
+            </div>
+            <div class="flashcard-back">
+              <div class="fc-translation" id="srs-trans"></div>
+              <button class="btn-audio" onclick="App.playSRSAudio(event)">🔊 Hear it</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fc-buttons">
+        <button class="btn-wrong" onclick="App.rateSRS('again')">🔁 Again</button>
+        <button class="btn-skip"  onclick="App.rateSRS('hard')">😓 Hard</button>
+        <button class="btn-right" onclick="App.rateSRS('easy')">😄 Easy</button>
+      </div>
+      <p class="srs-counter-text" id="srs-count-text">Card 1 of 5</p>
+    </div>
+    <div id="srs-done" class="srs-done hidden">
+      <div class="result-emoji">✅</div>
+      <h3>Review complete!</h3>
+      <p id="srs-done-msg"></p>
+      <button class="btn-primary" onclick="App.goHome()">Back to Home</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PROGRESS SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-progress" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>📊 My Progress</h2>
+    </header>
+    <div class="progress-page">
+      <div class="progress-summary-grid">
+        <div class="prog-card"><span id="p-streak">0</span><small>Day Streak 🔥</small></div>
+        <div class="prog-card"><span id="p-words">0</span><small>Words Learned</small></div>
+        <div class="prog-card"><span id="p-xp">0</span><small>Total XP ⭐</small></div>
+        <div class="prog-card"><span id="p-quizzes">0</span><small>Quizzes Done</small></div>
+      </div>
+      <h3 class="section-subheading">Category Completion</h3>
+      <div id="category-progress-list" class="cat-progress-list"></div>
+      <h3 class="section-subheading">Recent Activity</h3>
+      <div id="activity-log" class="activity-log"></div>
+      <button class="btn-danger mt10" onclick="App.resetProgress()">🗑 Reset All Progress</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHRASEBOOK SECTION (Grid View)
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-phrasebook" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>💬 Phrasebook</h2>
+    </header>
+    <div class="section-intro">Choose a category to explore useful phrases</div>
+    <div id="phrasebook-grid" class="card-grid"></div>
+  </div>
+
+  <!-- PHRASEBOOK DETAIL -->
+  <div id="screen-phrasebook-detail" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.showSection('phrasebook')">← Phrasebook</button>
+      <h2 id="phrasebook-detail-title">Phrases</h2>
+    </header>
+    <div class="phrasebook-search-bar">
+      <input type="text" id="phrase-search" placeholder="Search phrases…" oninput="App.searchPhrasesInDetail(this.value)" />
+    </div>
+    <div id="phrasebook-list" class="phrasebook-list"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       DICTIONARY SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-dictionary" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>📖 Dictionary</h2>
+    </header>
+    <div class="dict-search-bar">
+      <input type="text" id="dict-search" placeholder="Search English or Sinhala…" oninput="App.searchDictionary(this.value)" autocomplete="off" />
+      <div class="dict-toggle-row">
+        <button class="dict-dir-btn active" id="dict-dir-en" onclick="App.setDictDirection('en')">English → Sinhala</button>
+        <button class="dict-dir-btn" id="dict-dir-si" onclick="App.setDictDirection('si')">Sinhala → English</button>
+      </div>
+    </div>
+    <div class="dict-stats" id="dict-stats">Loading dictionary…</div>
+    <div id="dict-results" class="dict-results"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       ALPHABET SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-alphabet" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>🔤 Sinhala Alphabet</h2>
+    </header>
+    <div class="section-intro">Learn the Sinhala writing system – vowels & consonants</div>
+    <div id="alphabet-tabs" class="phrase-tabs">
+      <button class="phrase-tab-btn active" onclick="App.showAlphabetTab('vowels', this)">Vowels (ස්වර)</button>
+      <button class="phrase-tab-btn" onclick="App.showAlphabetTab('consonants', this)">Consonants (ව්‍යංජන)</button>
+    </div>
+    <div id="alphabet-content" class="alphabet-grid"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       ABOUT SECTION
+  ═══════════════════════════════════════════════ -->
+  <div id="screen-about" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.goHome()">← Home</button>
+      <h2>ℹ️ About</h2>
+    </header>
+    <div class="about-page">
+      <div class="about-avatar">👨‍💻</div>
+      <div class="about-name">Dinuka Adasooriya</div>
+      <div class="about-role">Developer & Creator</div>
+
+      <div class="about-card">
+        <h3>Contact & Links</h3>
+        <div class="about-row">
+          <span class="about-icon">✉️</span>
+          <a href="mailto:dinuka0001@gmail.com">dinuka0001@gmail.com</a>
+        </div>
+        <div class="about-row">
+          <span class="about-icon">🐙</span>
+          <a href="https://github.com/Dinuka0001" target="_blank">github.com/Dinuka0001</a>
+        </div>
+      </div>
+
+      <div class="about-app-info">
+        <div class="app-title-sm">සිංහල<span>Ease</span></div>
+        <p>A modern, interactive Sinhala language learning app featuring vocabulary lessons, flashcards, quizzes, spaced repetition, a comprehensive dictionary, phrasebook, and alphabet guide.</p>
+        <p style="margin-top:10px">Built with ❤️ using vanilla HTML, CSS & JavaScript.</p>
+      </div>
+
+      <div class="about-footer">
+        <p>© 2026 Dinuka Adasooriya. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════
+       TOAST NOTIFICATION
+  ═══════════════════════════════════════════════ -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════════ -->
+  <script src="js/data.js"></script>
+  <script src="js/dictionary-data.js"></script>
+  <script src="js/srs.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
