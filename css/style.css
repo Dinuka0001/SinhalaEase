@@ -266,12 +266,31 @@ img    { max-width: 100%; display: block; }
   border: 2px solid transparent;
 }
 .word-row.known { border-color: var(--success); }
-.word-row img.word-thumb {
-  width: 48px; height: 48px;
-  border-radius: var(--radius-sm);
-  object-fit: cover;
+
+/* Updated for Emoji Fallbacks */
+.word-thumb-container {
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
 }
+.word-row img.word-thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+.word-emoji-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  color: var(--primary);
+}
+
 .word-row .word-sinhala {
   font-family: var(--sinhala-font);
   font-size: 1.3rem;
@@ -397,6 +416,19 @@ img    { max-width: 100%; display: block; }
 
 .fc-category { font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
 .fc-img { width: 72px; height: 72px; object-fit: contain; margin-bottom: 12px; border-radius: var(--radius-sm); }
+.fc-emoji-fallback {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  color: var(--primary);
+}
+
 .fc-word {
   font-family: var(--sinhala-font);
   font-size: 2.2rem;
@@ -506,6 +538,18 @@ img    { max-width: 100%; display: block; }
   object-fit: contain;
   margin: 0 auto 12px;
   border-radius: var(--radius-sm);
+}
+.quiz-emoji-fallback {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  color: var(--primary);
 }
 .quiz-question {
   font-size: 1.4rem;
