@@ -133,9 +133,14 @@ const App = (() => {
     const p    = SRS.getProgress();
     const known= p.categoryProgress[categoryId] || [];
     const list = document.getElementById('lesson-word-list');
+    
+    // We wrap the image and emoji in a container. The onerror switches display to the emoji
     list.innerHTML = activeLesson.words.map(w => `
       <div class="word-row ${known.includes(w.id)?'known':''}">
-        <img class="word-thumb" src="assets/images/${w.image}" alt="${w.english}" onerror="this.style.display='none'" />
+        <div class="word-thumb-container">
+          <img class="word-thumb" src="assets/images/${w.image}" alt="${w.english}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="word-emoji-fallback" style="display:none;">${w.emoji || ''}</div>
+        </div>
         <div class="word-meta">
           <div class="word-sinhala">${w.sinhala}</div>
           <div class="word-roman">${w.roman}</div>
@@ -193,9 +198,29 @@ const App = (() => {
     setText('fc-counter',    `${fcIndex+1} / ${fcDeck.length}`);
 
     const img = document.getElementById('fc-image');
-    img.src   = `assets/images/${w.image}`;
-    img.alt   = w.english;
-    img.style.display = '';
+    let fallback = document.getElementById('fc-emoji-fallback');
+    
+    // Inject fallback div if not present
+    if (!fallback && img) {
+      fallback = document.createElement('div');
+      fallback.id = 'fc-emoji-fallback';
+      fallback.className = 'fc-emoji-fallback';
+      img.parentNode.insertBefore(fallback, img.nextSibling);
+    }
+
+    img.src = `assets/images/${w.image}`;
+    img.alt = w.english;
+    img.style.display = 'block';
+
+    if (fallback) {
+      fallback.style.display = 'none';
+      fallback.innerHTML = w.emoji || '';
+    }
+
+    img.onerror = () => {
+      img.style.display = 'none';
+      if (fallback) fallback.style.display = 'flex';
+    };
 
     // Progress bar
     const pct = Math.round(((fcIndex) / fcDeck.length) * 100);
@@ -334,11 +359,31 @@ const App = (() => {
     hide('quiz-feedback');
     hide('quiz-next-btn');
 
-    // Image
+    // Image logic with emoji fallback
     const img = document.getElementById('quiz-img');
+    let fallback = document.getElementById('quiz-emoji-fallback');
+    
+    // Inject fallback div if not present
+    if (!fallback && img) {
+      fallback = document.createElement('div');
+      fallback.id = 'quiz-emoji-fallback';
+      fallback.className = 'quiz-emoji-fallback';
+      img.parentNode.insertBefore(fallback, img.nextSibling);
+    }
+
     img.src = `assets/images/${w.image}`;
     img.alt = w.english;
-    img.style.display = '';
+    img.style.display = 'block';
+
+    if (fallback) {
+      fallback.style.display = 'none';
+      fallback.innerHTML = w.emoji || '';
+    }
+
+    img.onerror = () => {
+      img.style.display = 'none';
+      if (fallback) fallback.style.display = 'flex';
+    };
 
     // Always Multiple Choice
     setText('quiz-type-badge', 'Multiple Choice');
