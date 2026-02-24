@@ -194,7 +194,6 @@ const App = (() => {
     setText('fc-word',       w.sinhala);
     setText('fc-romanized',  w.roman);
     setText('fc-translation',w.english);
-    setText('fc-example',    w.example || '');
     setText('fc-counter',    `${fcIndex+1} / ${fcDeck.length}`);
 
     const img = document.getElementById('fc-image');
@@ -400,7 +399,7 @@ const App = (() => {
     const options  = shuffle([correctWord, ...distractors]);
     const container= document.getElementById('quiz-options');
     container.innerHTML = options.map(o => `
-      <button class="quiz-opt-btn" onclick="App.selectMC(this,'${o.id}','${correctWord.id}')">
+      <button class="quiz-opt-btn" data-word-id="${o.id}" onclick="App.selectMC(this,'${o.id}','${correctWord.id}')">
         ${o.english}
       </button>`).join('');
   }
@@ -412,7 +411,7 @@ const App = (() => {
     btn.classList.add(correct ? 'correct' : 'wrong');
     if (!correct) {
       document.querySelectorAll('.quiz-opt-btn').forEach(b => {
-        if (b.onclick && b.getAttribute('onclick').includes(correctId)) b.classList.add('correct');
+        if (b.dataset.wordId === correctId) b.classList.add('correct');
       });
     }
     showFeedback(correct, quizDeck[quizIndex]);
@@ -743,7 +742,8 @@ const App = (() => {
     if (!container) return;
 
     let data;
-    if (tab === 'vowels')          data = SINHALA_ALPHABET.vowels;
+    if (tab === 'vowels')           data = SINHALA_ALPHABET.vowels;
+    else if (tab === 'numerals')    data = SINHALA_ALPHABET.numerals;
     else                            data = SINHALA_ALPHABET.consonants;
 
     container.innerHTML = data.map(item => `
