@@ -9,13 +9,13 @@ A modern, interactive Sinhala language learning web app built with vanilla HTML,
 ## ✨ Features
 
 | Section | Description |
-|---|---|
-| 📚 **Lessons** | 16 vocabulary categories (greetings, numbers, colors, food, etc.) with images and audio |
+| --- | --- |
+| 📚 **Lessons** | 18 vocabulary categories (greetings, numbers, colors, food, etc.) with images, emojis, and audio |
 | 🃏 **Flashcards** | Flip-card practice with Easy / Hard rating and progress tracking |
-| 🧠 **Quiz** | Multiple-choice quizzes per category or across all vocabulary |
+| 🧠 **Quiz** | Multiple-choice quizzes — see the English word + image, then pick the matching Sinhala word with romanization and audio |
 | 🔄 **SRS Review** | Spaced Repetition System — revisits words at 1, 3, 7, 14 & 30-day intervals |
 | 💬 **Phrasebook** | 7 categories of practical phrases (survival, restaurant, directions, shopping, and more) with audio |
-| 📖 **Dictionary** | 54,000+ word English ↔ Sinhala dictionary with instant search |
+| 🗣️ **Conversations** | 7 real-life dialog scenarios (café, shopping, directions, pharmacy, transport, etc.) in a chat-bubble UI |
 | 🔤 **Alphabet** | Interactive Sinhala vowels & consonants with pronunciation audio |
 | 📊 **Progress** | XP points, day streak, words learned, category completion and activity log |
 | ℹ️ **About** | App and creator information |
@@ -26,9 +26,9 @@ A modern, interactive Sinhala language learning web app built with vanilla HTML,
 
 ### Run locally
 
-Since the dictionary is loaded via a JavaScript file (no server required), you can open the app directly:
+Since the app is a single-page static site, you can open it directly:
 
-```
+```text
 index.html  ← double-click to open in any browser
 ```
 
@@ -45,19 +45,18 @@ index.html  ← double-click to open in any browser
 
 ## 📁 Project Structure
 
-```
+```text
 ├── index.html              # Single-page app entry point
 ├── css/
 │   └── style.css           # All styles (design tokens, layout, components)
 ├── js/
 │   ├── app.js              # Main application controller
-│   ├── data.js             # Vocabulary, phrasebook, alphabet data
-│   ├── srs.js              # Spaced Repetition System + progress tracking
-│   ├── dictionary.json     # 54,000+ word EN↔SI dictionary (source)
-│   └── dictionary-data.js  # dictionary.json wrapped as a JS variable
+│   ├── data.js             # Vocabulary, phrasebook, conversation & alphabet data
+│   └── srs.js              # Spaced Repetition System + progress tracking
+├── tools/
+│   └── verify-assets.mjs   # Checks missing image/audio files referenced in data.js
 └── assets/
-    ├── Fonts/
-    │   └── UN-Bindumathi.ttf   # Sinhala display font
+    ├── Fonts/              # Sinhala display font
     ├── images/             # Word images organised by category
     └── audio/              # Audio clips organised by category
 ```
@@ -66,7 +65,13 @@ index.html  ← double-click to open in any browser
 
 ## 🗂️ Vocabulary Categories
 
-Greetings · Numbers · Time · Colors · Family · Food · Home · City · Nature · Pronouns · Body · Animals · Jobs · Clothes · Health · Verbs & Adjectives · Questions
+Greetings · Numbers · Time · Colors · Family · Food · Home · City · Nature · Pronouns · Body · Animals · Jobs · Clothes · Health · Verbs · Adjectives · Questions
+
+---
+
+## 🗣️ Conversation Topics
+
+Everyday Greetings · At a Café · Shopping · Getting Directions · Introductions & Small Talk · At a Pharmacy · Public Transport
 
 ---
 
@@ -80,9 +85,25 @@ Greetings · Numbers · Time · Colors · Family · Food · Home · City · Natu
 
 ---
 
+## 🧪 Asset Verification
+
+Run this optional check to find missing files referenced from `js/data.js`:
+
+```bash
+node tools/verify-assets.mjs
+```
+
+Generate a full checklist file (`ASSETS_MISSING.txt`) with all missing image/audio paths:
+
+```bash
+node tools/verify-assets.mjs --write-manifest
+```
+
+---
+
 ## 🔤 Font
 
-Sinhala text is rendered using **UN-Bindumathi** (`assets/Fonts/UN-Bindumathi.ttf`), with Iskoola Pota / Nirmala UI as fallbacks.
+Sinhala text is rendered using **Noto Serif Sinhala** (`assets/Fonts/Noto Serif Sinhala.ttf`), with Iskoola Pota / Nirmala UI as fallbacks.
 
 ---
 
@@ -94,6 +115,8 @@ Place `.mp3` files in the appropriate asset folders to replace TTS:
   (filenames match the `audio` property in `js/data.js`)
 - **Alphabet:** `assets/audio/alphabet/<roman>.mp3`  
   (e.g., `a.mp3`, `ka.mp3`, `ga.mp3`)
+- **Conversations:** `assets/audio/dialogs/<filename>.mp3`  
+  (filenames match the `audio` property in `DIALOGS_DATA` in `js/data.js`)
 - **Phrasebook:** `assets/audio/phrasebook/<filename>.mp3`  
   (add an `audio` property to the phrase entry in `js/data.js`)
 
