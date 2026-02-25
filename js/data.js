@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   data.js  –  All vocabulary, phrases & grammar data
+   data.js  –  All vocabulary, phrases, grammar & dialog data
    ═══════════════════════════════════════════════════════════ */
 
 const VOCAB_DATA = [
@@ -654,6 +654,154 @@ const PHRASEBOOK = [
       { sinhala:"ඔයා ලස්සනයි",             roman:"Oyā lassanayi",               english:"You are beautiful" },
       { sinhala:"මට ඔයාව හම්බවෙන්න ඕනේ",    roman:"Mata oyāwa hambawenna ōnē",   english:"I want to meet you" },
       { sinhala:"ඔයා මගේ යාළුවා",          roman:"Oyā magē yāluwā",             english:"You are my friend" },
+    ]
+  }
+];
+
+/* ════════════════════════════════════════════════════════
+   DIALOGS & CONVERSATIONS
+════════════════════════════════════════════════════════ */
+const DIALOGS_DATA = [
+  {
+    id: "dialog_greetings",
+    title: "Everyday Greetings",
+    icon: "🤝",
+    color: "#2980B9",
+    emoji: "🤝",
+    image: "dialogs/greetings.png",
+    characters: {
+      "A": { image: "dialogs/characters/greetings-female.png", emoji: "👩" },
+      "B": { image: "dialogs/characters/greetings-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "A", english: "Hi! My name is Hiruni. Nice to meet you.", sinhala: "ආයුබෝවන්! මගේ නම හිරුනි. ඔයාව හමුවීම සතුටක්.", roman: "Āyubōvan! Magē nama Hiruni. Oyāwa hamuwīma sathutak.", audio: "dialogs/greetings_1.mp3" },
+      { speaker: "B", english: "Nice to meet you too, Hiruni. I'm Dinuka.", sinhala: "මටත් ඔයාව හමුවීම සතුටක්, හිරුනි. මම දිනුක.", roman: "Matath oyāwa hamuwīma sathutak, Hiruni. Mama Dinuka.", audio: "dialogs/greetings_2.mp3" },
+      { speaker: "A", english: "How are you today?", sinhala: "අද ඔයාට කොහොමද?", roman: "Ada oyāta kohomada?", audio: "dialogs/greetings_3.mp3" },
+      { speaker: "B", english: "I'm good, thank you! And you?", sinhala: "මම හොඳින්, ස්තූතියි! ඉතින් ඔයාට?", roman: "Mama hondin, stūthiyi! Ithin oyāta?", audio: "dialogs/greetings_4.mp3" },
+      { speaker: "A", english: "I'm great, thanks!", sinhala: "මමත් ගොඩක් හොඳින්, ස්තූතියි!", roman: "Mamath godak hondin, stūthiyi!", audio: "dialogs/greetings_5.mp3" }
+    ]
+  },
+  {
+    id: "dialog_cafe",
+    title: "At a Café",
+    icon: "☕",
+    color: "#D35400",
+    emoji: "☕",
+    image: "dialogs/cafe.png",
+    characters: {
+      "Customer": { image: "dialogs/characters/cafe-female.png", emoji: "👩" },
+      "Barista": { image: "dialogs/characters/cafe-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "Customer", english: "Hello, can I get a coffee, please?", sinhala: "ආයුබෝවන්, මට කෝපි එකක් දෙන්න පුළුවන්ද?", roman: "Āyubōvan, mata kōpi ekak denna puluwanda?", audio: "dialogs/cafe_1.mp3" },
+      { speaker: "Barista", english: "Of course! Would you like a small or large?", sinhala: "අනිවාර්යයෙන්ම! ඔයාට ඕනේ පොඩි එකක්ද ලොකු එකක්ද?", roman: "Aniwāryayenma! Oyāta ōnē podi ekakda loku ekakda?", audio: "dialogs/cafe_2.mp3" },
+      { speaker: "Customer", english: "A large, please.", sinhala: "ලොකු එකක් දෙන්න.", roman: "Loku ekak denna.", audio: "dialogs/cafe_3.mp3" },
+      { speaker: "Barista", english: "That's Rs. 450. Would you like anything else?", sinhala: "ඒක රුපියල් හාරසිය පනහයි. තව මොනවා හරි ඕනෙද?", roman: "Ēka rupiyal hārasiya panahayi. Thawa monawā hari ōneda?", audio: "dialogs/cafe_4.mp3" },
+      { speaker: "Customer", english: "No, thank you. That's all.", sinhala: "නෑ, ස්තූතියි. එච්චරයි.", roman: "Nǣ, stūthiyi. Echcharayi.", audio: "dialogs/cafe_5.mp3" },
+      { speaker: "Barista", english: "Here you go. Enjoy!", sinhala: "මෙන්න. රස විඳින්න!", roman: "Menna. Rasa widinna!", audio: "dialogs/cafe_6.mp3" },
+      { speaker: "Customer", english: "Thank you!", sinhala: "ස්තූතියි!", roman: "Stūthiyi!", audio: "dialogs/cafe_7.mp3" }
+    ]
+  },
+  {
+    id: "dialog_shopping",
+    title: "Shopping",
+    icon: "🛍️",
+    color: "#E74C3C",
+    emoji: "🛍️",
+    image: "dialogs/shopping.png",
+    characters: {
+      "Customer": { image: "dialogs/characters/shopping-female.png", emoji: "👩" },
+      "Staff": { image: "dialogs/characters/shopping-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "Customer", english: "Excuse me, how much is this shirt?", sinhala: "සමාවෙන්න, මේ කමිසය කීයද?", roman: "Samāwenna, mē kamisaya kīyada?", audio: "dialogs/shopping_1.mp3" },
+      { speaker: "Staff", english: "It's Rs. 1500.", sinhala: "ඒක රුපියල් එක්දහස් පන්සියයයි.", roman: "Ēka rupiyal ekdahas pansiyayayi.", audio: "dialogs/shopping_2.mp3" },
+      { speaker: "Customer", english: "Do you have it in blue?", sinhala: "මේකේ නිල් පාට එකක් තියෙනවද?", roman: "Mēkē nil pāta ekak thiyenawada?", audio: "dialogs/shopping_3.mp3" },
+      { speaker: "Staff", english: "Yes, we do! What size do you need?", sinhala: "ඔව්, තියෙනවා! ඔයාට මොන ප්‍රමාණයද ඕනේ?", roman: "Ow, thiyenawā! Oyāta mona pramānayada ōnē?", audio: "dialogs/shopping_4.mp3" },
+      { speaker: "Customer", english: "Medium, please.", sinhala: "මීඩියම් එකක් දෙන්න.", roman: "Mīdiyum ekak denna.", audio: "dialogs/shopping_5.mp3" },
+      { speaker: "Staff", english: "Here you go!", sinhala: "මෙන්න!", roman: "Menna!", audio: "dialogs/shopping_6.mp3" },
+      { speaker: "Customer", english: "Thank you. I'll take it.", sinhala: "ස්තූතියි. මම මේක ගන්නවා.", roman: "Stūthiyi. Mama mēka gannawā.", audio: "dialogs/shopping_7.mp3" }
+    ]
+  },
+  {
+    id: "dialog_directions",
+    title: "Getting Directions",
+    icon: "🗺️",
+    color: "#1ABC9C",
+    emoji: "🗺️",
+    image: "dialogs/directions.png",
+    characters: {
+      "A": { image: "dialogs/characters/directions-female.png", emoji: "👩" },
+      "B": { image: "dialogs/characters/directions-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "A", english: "Excuse me, where is the nearest train station?", sinhala: "සමාවෙන්න, ළඟම තියෙන දුම්රිය ස්ථානය කොහේද?", roman: "Samāwenna, lagama thiyena dumriya sthānaya kohēda?", audio: "dialogs/directions_1.mp3" },
+      { speaker: "B", english: "Go straight ahead, then turn left at the traffic light.", sinhala: "කෙළින්ම ගිහින්, වර්ණ සංඥා ළඟින් වමට හැරෙන්න.", roman: "Kelinma gihin, warna saññā langin wamata hærenna.", audio: "dialogs/directions_2.mp3" },
+      { speaker: "A", english: "How far is it?", sinhala: "ඒක කොච්චර දුරද?", roman: "Ēka kochchara durada?", audio: "dialogs/directions_3.mp3" },
+      { speaker: "B", english: "About five minutes on foot.", sinhala: "පයින් යනවා නම් විනාඩි පහක් විතර යයි.", roman: "Payin yanawā nam winādi pahak withara yayi.", audio: "dialogs/directions_4.mp3" },
+      { speaker: "A", english: "Great, thank you so much!", sinhala: "නියමයි, ගොඩක් ස්තූතියි!", roman: "Niyamayi, godak stūthiyi!", audio: "dialogs/directions_5.mp3" },
+      { speaker: "B", english: "No problem, have a good day!", sinhala: "ප්‍රශ්නයක් නෑ, සුභ දවසක්!", roman: "Prashnayak nǣ, subha dawasak!", audio: "dialogs/directions_6.mp3" }
+    ]
+  },
+  {
+    id: "dialog_smalltalk",
+    title: "Introductions and Small Talk",
+    icon: "🗣️",
+    color: "#8E44AD",
+    emoji: "🗣️",
+    image: "dialogs/smalltalk.png",
+    characters: {
+      "A": { image: "dialogs/characters/smalltalk-female.png", emoji: "👩" },
+      "B": { image: "dialogs/characters/smalltalk-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "A", english: "Hi, where are you from?", sinhala: "ආයුබෝවන්, ඔයා කොහේ ඉඳන්ද ආවේ?", roman: "Āyubōvan, oyā kohē indanda āwē?", audio: "dialogs/smalltalk_1.mp3" },
+      { speaker: "B", english: "I'm from Brazil. And you?", sinhala: "මම බ්‍රසීලයේ ඉඳන් ආවේ. ඉතින් ඔයා?", roman: "Mama Brasīlayē indan āwē. Ithin oyā?", audio: "dialogs/smalltalk_2.mp3" },
+      { speaker: "A", english: "I'm from Canada. What do you do?", sinhala: "මම කැනඩාවෙන්. ඔයා මොනවද කරන්නේ?", roman: "Mama Kænadāwen. Oyā monawada karannē?", audio: "dialogs/smalltalk_3.mp3" },
+      { speaker: "B", english: "I'm a student. I study Sinhala here.", sinhala: "මම ශිෂ්‍යයෙක්. මම මෙහේ සිංහල ඉගෙනගන්නවා.", roman: "Mama shishyayek. Mama mehē sinhala igenagannawā.", audio: "dialogs/smalltalk_4.mp3" },
+      { speaker: "A", english: "That's great! How long have you been here?", sinhala: "ඒක නියමයි! ඔයා මෙහෙට ඇවිත් කොච්චර කල් වෙනවද?", roman: "Ēka niyamayi! Oyā meheta æwith kochchara kal wenawada?", audio: "dialogs/smalltalk_5.mp3" },
+      { speaker: "B", english: "About three months.", sinhala: "මාස තුනක් විතර වෙනවා.", roman: "Māsa thunak withara wenawā.", audio: "dialogs/smalltalk_6.mp3" }
+    ]
+  },
+  {
+    id: "dialog_pharmacy",
+    title: "At a Pharmacy",
+    icon: "💊",
+    color: "#27AE60",
+    emoji: "💊",
+    image: "dialogs/pharmacy.png",
+    characters: {
+      "Customer": { image: "dialogs/characters/pharmacy-female.png", emoji: "👩" },
+      "Pharmacist": { image: "dialogs/characters/pharmacy-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "Customer", english: "Hello, I have a headache. Can you help me?", sinhala: "ආයුබෝවන්, මට හිසරදයක් තියෙනවා. මට උදව් කරන්න පුළුවන්ද?", roman: "Āyubōvan, mata hisaradayak thiyenawā. Mata udaw karanna puluwanda?", audio: "dialogs/pharmacy_1.mp3" },
+      { speaker: "Pharmacist", english: "Of course. How long have you had it?", sinhala: "අනිවාර්යයෙන්ම. කොච්චර වෙලා ඉඳන්ද තියෙන්නේ?", roman: "Aniwāryayenma. Kochchara welā indanda thiyennē?", audio: "dialogs/pharmacy_2.mp3" },
+      { speaker: "Customer", english: "Since this morning.", sinhala: "අද උදේ ඉඳන්.", roman: "Ada udē indan.", audio: "dialogs/pharmacy_3.mp3" },
+      { speaker: "Pharmacist", english: "I recommend these tablets. Take two with water.", sinhala: "මම මේ පෙති නිර්දේශ කරනවා. වතුරත් එක්ක දෙකක් බොන්න.", roman: "Mama mē pethi nirdēsha karanawā. Wathurath ekka dekak bonna.", audio: "dialogs/pharmacy_4.mp3" },
+      { speaker: "Customer", english: "Thank you. How much is it?", sinhala: "ස්තූතියි. කීයද ගාණ?", roman: "Stūthiyi. Kīyada gāna?", audio: "dialogs/pharmacy_5.mp3" },
+      { speaker: "Pharmacist", english: "It's Rs. 200. Feel better soon!", sinhala: "රුපියල් දෙසීයයි. ඉක්මනින් සනීප වෙන්න!", roman: "Rupiyal desīyayi. Ikmanin sanīpa wenna!", audio: "dialogs/pharmacy_6.mp3" }
+    ]
+  },
+  {
+    id: "dialog_transport",
+    title: "Public Transport",
+    icon: "🚌",
+    color: "#F39C12",
+    emoji: "🚌",
+    image: "dialogs/transport.png",
+    characters: {
+      "Customer": { image: "dialogs/characters/transport-female.png", emoji: "👩" },
+      "Driver": { image: "dialogs/characters/transport-male.png", emoji: "👨" }
+    },
+    lines: [
+      { speaker: "Customer", english: "Excuse me, does this bus go to the city center?", sinhala: "සමාවෙන්න, මේ බස් එක නගර මධ්‍යයට යනවද?", roman: "Samāwenna, mē bas eka nagara madhyayata yanawada?", audio: "dialogs/transport_1.mp3" },
+      { speaker: "Driver", english: "Yes, it does.", sinhala: "ඔව්, යනවා.", roman: "Ow, yanawā.", audio: "dialogs/transport_2.mp3" },
+      { speaker: "Customer", english: "One ticket, please. How much is it?", sinhala: "ටිකට් එකක් දෙන්න. ඒක කීයද?", roman: "Tikat ekak denna. Ēka kīyada?", audio: "dialogs/transport_3.mp3" },
+      { speaker: "Driver", english: "Rs. 50, please.", sinhala: "රුපියල් පනහයි.", roman: "Rupiyal panahayi.", audio: "dialogs/transport_4.mp3" },
+      { speaker: "Customer", english: "Here you go. Which stop do I get off at?", sinhala: "මෙන්න. මම මොන නැවතුමෙන්ද බහින්න ඕනේ?", roman: "Menna. Mama mona næwathumenda bahinna ōnē?", audio: "dialogs/transport_5.mp3" },
+      { speaker: "Driver", english: "It's the fifth stop. I'll let you know.", sinhala: "පස්වෙනි නැවතුමෙන්. මම ඔයාට කියන්නම්.", roman: "Pasweni næwathumen. Mama oyāta kiyannam.", audio: "dialogs/transport_6.mp3" },
+      { speaker: "Customer", english: "Thank you so much!", sinhala: "ගොඩක් ස්තූතියි!", roman: "Godak stūthiyi!", audio: "dialogs/transport_7.mp3" }
     ]
   }
 ];
