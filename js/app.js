@@ -688,7 +688,10 @@ const App = (() => {
     if (!grid) return;
     grid.innerHTML = DIALOGS_DATA.map(d => `
       <div class="topic-card" onclick="App.openConversation('${d.id}')" style="border-top:4px solid ${d.color}">
-        <div class="card-icon">${d.icon}</div>
+        <div class="conversation-card-media">
+          <img class="conversation-card-image" src="assets/images/${d.image || ''}" alt="${d.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="conversation-card-emoji-fallback" style="display:none;">${d.emoji || d.icon || '💬'}</div>
+        </div>
         <div class="card-title">${d.title}</div>
         <div class="card-count">${d.lines.length} lines</div>
       </div>`).join('');
@@ -702,20 +705,32 @@ const App = (() => {
     const speakers = [...new Set(dialog.lines.map(l => l.speaker))];
     const firstSpeaker = speakers[0];
     const speakerEmojis = {
-      'A': '🧑', 'B': '👩',
+      'A': '👩', 'B': '👨',
       'Customer': '🛒', 'Barista': '☕',
       'Staff': '🏪', 'Driver': '🚌',
       'Pharmacist': '💊'
     };
+    const speakerProfiles = dialog.characters || {};
 
-    container.innerHTML = dialog.lines.map(line => {
+    const sceneMarkup = `
+      <div class="conversation-scene-media">
+        <img class="conversation-scene-image" src="assets/images/${dialog.image || ''}" alt="${dialog.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="conversation-scene-emoji-fallback" style="display:none;">${dialog.emoji || dialog.icon || '💬'}</div>
+      </div>`;
+
+    container.innerHTML = sceneMarkup + dialog.lines.map(line => {
       const isLeft = line.speaker === firstSpeaker;
-      const emoji = speakerEmojis[line.speaker] || '👤';
+      const profile = speakerProfiles[line.speaker] || {};
+      const avatarImage = profile.image || '';
+      const avatarEmoji = profile.emoji || speakerEmojis[line.speaker] || '👤';
       const escapedSinhala = line.sinhala.replace(/'/g, "\\'");
       const audioPath = line.audio || '';
       return `
         <div class="dialog-line ${isLeft ? 'dialog-left' : 'dialog-right'}">
-          <div class="dialog-avatar">${emoji}</div>
+          <div class="dialog-avatar">
+            <img class="dialog-avatar-image" src="assets/images/${avatarImage}" alt="${line.speaker}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="dialog-avatar-emoji-fallback" style="display:none;">${avatarEmoji}</div>
+          </div>
           <div class="dialog-bubble">
             <div class="dialog-speaker">${line.speaker}</div>
             <div class="dialog-sinhala">${line.sinhala}</div>
