@@ -46,8 +46,8 @@
         <button class="nav-btn" data-section="phrasebook" onclick="App.showSection('phrasebook')">
           💬 Phrasebook
         </button>
-        <button class="nav-btn" data-section="dictionary" onclick="App.showSection('dictionary')">
-          📖 Dictionary
+        <button class="nav-btn" data-section="conversations" onclick="App.showSection('conversations')">
+          🗣️ Conversations
         </button>
         <button class="nav-btn" data-section="alphabet" onclick="App.showSection('alphabet')">
           🔤 Alphabet
@@ -271,22 +271,24 @@
   </div>
 
   <!-- ═══════════════════════════════════════════════
-       DICTIONARY SECTION
-  ═══════════════════════════════════════════════ -->
-  <div id="screen-dictionary" class="screen">
+       CONVERSATIONS SECTION
+  ═════════════════════════════════════════════ -->
+  <div id="screen-conversations" class="screen">
     <header class="screen-header">
       <button class="back-btn" onclick="App.goHome()">← Home</button>
-      <h2>📖 Dictionary</h2>
+      <h2>🗣️ Conversations</h2>
     </header>
-    <div class="dict-search-bar">
-      <input type="text" id="dict-search" placeholder="Search English or Sinhala…" oninput="App.searchDictionary(this.value)" autocomplete="off" />
-      <div class="dict-toggle-row">
-        <button class="dict-dir-btn active" id="dict-dir-en" onclick="App.setDictDirection('en')">English → Sinhala</button>
-        <button class="dict-dir-btn" id="dict-dir-si" onclick="App.setDictDirection('si')">Sinhala → English</button>
-      </div>
-    </div>
-    <div class="dict-stats" id="dict-stats">Loading dictionary…</div>
-    <div id="dict-results" class="dict-results"></div>
+    <div class="section-intro">Practice real-life dialogues and conversations</div>
+    <div id="conversation-grid" class="card-grid"></div>
+  </div>
+
+  <!-- CONVERSATION DETAIL -->
+  <div id="screen-conversation-detail" class="screen">
+    <header class="screen-header">
+      <button class="back-btn" onclick="App.showSection('conversations')">← Conversations</button>
+      <h2 id="conversation-detail-title">Conversation</h2>
+    </header>
+    <div id="conversation-lines" class="conversation-lines"></div>
   </div>
 
   <!-- ═══════════════════════════════════════════════
@@ -333,7 +335,7 @@
 
       <div class="about-app-info">
         <div class="app-title-sm">සිංහල<span>Ease</span></div>
-        <p>A modern, interactive Sinhala language learning app featuring vocabulary lessons, flashcards, quizzes, spaced repetition, a comprehensive dictionary, phrasebook, and alphabet guide.</p>
+        <p>A modern, interactive Sinhala language learning app featuring vocabulary lessons, flashcards, quizzes, spaced repetition, real-life conversations, phrasebook, and alphabet guide.</p>
         <p style="margin-top:10px">Built with ❤️ using vanilla HTML, CSS & JavaScript.</p>
       </div>
 
@@ -352,7 +354,6 @@
        SCRIPTS
   ═══════════════════════════════════════════════ -->
   <script src="js/data.js"></script>
-  <script src="js/dictionary-data.js"></script>
   <script src="js/srs.js"></script>
   <script src="js/app.js"></script>
 </body>
