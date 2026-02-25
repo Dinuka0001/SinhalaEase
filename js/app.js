@@ -18,6 +18,7 @@ const App = (() => {
   let quizScore      = 0;
   let quizTotal      = 0;
   let quizCategory   = null;
+  let quizFromLesson = false;
   let wordOrderAnswer= [];
   let wordOrderAll   = [];
 
@@ -27,9 +28,6 @@ const App = (() => {
 
   let currentAudioWord = null;  // word object for current audio
 
-  let dictData          = null;  // dictionary.json loaded
-  let dictDirection     = 'en';  // 'en' = eng→sin, 'si' = sin→eng
-  let dictEntries       = [];    // array of {eng, sin}
   let activePhraseCat   = null;  // phrasebook detail category
 
   /* ────────────────────────────────────────────────────────
@@ -41,7 +39,7 @@ const App = (() => {
     buildLessonGrid();
     buildQuizTopicGrid();
     buildPhrasebookGrid();
-    loadDictionary();
+    buildConversationGrid();
     showAlphabetTab('vowels', null);
     showScreen('screen-home');
   }
@@ -68,7 +66,7 @@ const App = (() => {
       review:     'screen-review',
       progress:   'screen-progress',
       phrasebook: 'screen-phrasebook',
-      dictionary: 'screen-dictionary',
+      conversations: 'screen-conversations',
       alphabet:   'screen-alphabet',
       about:      'screen-about'
     };
@@ -147,7 +145,7 @@ const App = (() => {
           <div class="word-english">${w.english}</div>
         </div>
         <button class="word-audio-btn" title="Play audio"
-          onclick="App.playWordAudio(event, '${w.audio}')">🔊</button>
+          onclick="App.playWordAudio(event, '${w.audio}', '${w.sinhala.replace(/'/g, "\\'")}')">🔊</button>
       </div>`).join('');
     showScreen('screen-lesson-detail');
     SRS.logActivity(`📚 Opened lesson: ${activeLesson.title}`);
@@ -163,6 +161,7 @@ const App = (() => {
 
   function startQuizForLesson() {
     if (!activeLesson) return;
+    quizFromLesson = true;
     startQuiz(activeLesson.id);
   }
 
@@ -260,16 +259,28 @@ const App = (() => {
 
   function playAudio(e) {
     e.stopPropagation();
-    if (currentAudioWord) playWordAudio(null, currentAudioWord.audio);
+    if (currentAudioWord) playWordAudio(null, currentAudioWord.audio, currentAudioWord.sinhala);
   }
 
-  function playWordAudio(e, audioPath) {
+  function playWordAudio(e, audioPath, fallbackText = '') {
     if (e) e.stopPropagation();
     try {
       const audio = new Audio(`assets/audio/${audioPath}`);
-      audio.play().catch(() => showToast('🔇 Audio file not found'));
+      audio.play().catch(() => {
+        if (fallbackText) {
+          fallbackTTS(fallbackText);
+          showToast('🔈 Using Sinhala TTS fallback');
+        } else {
+          showToast('🔇 Audio file not found');
+        }
+      });
     } catch(err) {
-      showToast('🔇 Audio file not found');
+      if (fallbackText) {
+        fallbackTTS(fallbackText);
+        showToast('🔈 Using Sinhala TTS fallback');
+      } else {
+        showToast('🔇 Audio file not found');
+      }
     }
   }
 
@@ -340,6 +351,7 @@ const App = (() => {
     hide('quiz-picker');
     hide('quiz-results');
     show('quiz-active');
+    showScreen('screen-quiz');
     setText('quiz-score-badge', 'Score: 0');
     SRS.logActivity(`🧠 Started quiz: ${categoryId}`);
     renderQuizQuestion();
@@ -386,21 +398,22 @@ const App = (() => {
 
     // Always Multiple Choice
     setText('quiz-type-badge', 'Multiple Choice');
-    setText('quiz-question', w.sinhala);
-    setText('quiz-subtext', `(${w.roman}) — choose the meaning`);
+    setText('quiz-question', w.english);
+    setText('quiz-subtext', 'Choose the correct Sinhala word');
     show('quiz-options');
     buildMCOptions(w);
   }
 
   function buildMCOptions(correctWord) {
-    // Get 3 distractors from same or other categories
     const all      = VOCAB_DATA.flatMap(c => c.words);
     const distractors = shuffle(all.filter(w => w.id !== correctWord.id)).slice(0, 3);
     const options  = shuffle([correctWord, ...distractors]);
     const container= document.getElementById('quiz-options');
     container.innerHTML = options.map(o => `
       <button class="quiz-opt-btn" data-word-id="${o.id}" onclick="App.selectMC(this,'${o.id}','${correctWord.id}')">
-        ${o.english}
+        <span class="quiz-opt-sinhala">${o.sinhala}</span>
+        <span class="quiz-opt-roman">${o.roman}</span>
+        <span class="quiz-opt-audio" onclick="event.stopPropagation(); App.playWordAudio(event, '${o.audio}', '${o.sinhala.replace(/'/g, "\\'")}')">🔊</span>
       </button>`).join('');
   }
 
@@ -431,8 +444,8 @@ const App = (() => {
     const fb = document.getElementById('quiz-feedback');
     fb.className = 'quiz-feedback ' + (correct ? 'correct' : 'wrong');
     fb.innerHTML = correct
-      ? `✅ Correct! <strong>${word.sinhala}</strong> = ${word.english}`
-      : `❌ Not quite. <strong>${word.sinhala}</strong> (${word.roman}) = ${word.english}`;
+      ? `✅ Correct! ${word.english} = <strong>${word.sinhala}</strong> (${word.roman})`
+      : `❌ Not quite. ${word.english} = <strong>${word.sinhala}</strong> (${word.roman})`;
     show('quiz-feedback');
     show('quiz-next-btn');
   }
@@ -474,14 +487,16 @@ const App = (() => {
     const isInQuiz    = (quizActive && !quizActive.classList.contains('hidden')) ||
                         (quizResults && !quizResults.classList.contains('hidden'));
 
-    if (isInQuiz) {
-      // From active quiz / results → back to topic picker
-      hide('quiz-active');
-      hide('quiz-results');
-      show('quiz-picker');
+    hide('quiz-active');
+    hide('quiz-results');
+    show('quiz-picker');
+
+    if (isInQuiz && quizFromLesson) {
+      quizFromLesson = false;
+      showScreen('screen-lesson-detail');
+    } else if (isInQuiz) {
       showScreen('screen-quiz');
     } else {
-      // From topic picker → back to home
       goHome();
     }
   }
@@ -540,7 +555,7 @@ const App = (() => {
 
   function playSRSAudio(e) {
     if (e) e.stopPropagation();
-    if (currentAudioWord) playWordAudio(null, currentAudioWord.audio);
+    if (currentAudioWord) playWordAudio(null, currentAudioWord.audio, currentAudioWord.sinhala);
   }
 
   function endSRS() {
@@ -666,68 +681,52 @@ const App = (() => {
   }
 
   /* ────────────────────────────────────────────────────────
-     DICTIONARY
+     CONVERSATIONS
   ────────────────────────────────────────────────────────── */
-  function loadDictionary() {
-    try {
-      if (typeof DICTIONARY_DATA !== 'undefined') {
-        dictData = DICTIONARY_DATA;
-        dictEntries = Object.entries(dictData).map(([eng, sin]) => ({ eng, sin }));
-        const statsEl = document.getElementById('dict-stats');
-        if (statsEl) statsEl.textContent = `${dictEntries.length.toLocaleString()} entries loaded. Type to search.`;
-      } else {
-        const statsEl = document.getElementById('dict-stats');
-        if (statsEl) statsEl.textContent = 'Failed to load dictionary.';
-      }
-    } catch(e) {
-      const statsEl = document.getElementById('dict-stats');
-      if (statsEl) statsEl.textContent = 'Failed to load dictionary.';
-    }
-  }
-
-  function setDictDirection(dir) {
-    dictDirection = dir;
-    document.getElementById('dict-dir-en').classList.toggle('active', dir === 'en');
-    document.getElementById('dict-dir-si').classList.toggle('active', dir === 'si');
-    const searchVal = document.getElementById('dict-search').value;
-    if (searchVal) searchDictionary(searchVal);
-  }
-
-  function searchDictionary(query) {
-    const q = (query || '').toLowerCase().trim();
-    const container = document.getElementById('dict-results');
-    if (!dictEntries.length || !q) {
-      container.innerHTML = q ? '<p class="dict-empty">Loading dictionary...</p>' : '';
-      return;
-    }
-
-    let results;
-    if (dictDirection === 'en') {
-      // Exact matches first, then starts-with, then contains
-      const exact   = dictEntries.filter(e => e.eng.toLowerCase() === q);
-      const starts  = dictEntries.filter(e => e.eng.toLowerCase().startsWith(q) && e.eng.toLowerCase() !== q);
-      const contains= dictEntries.filter(e => e.eng.toLowerCase().includes(q) && !e.eng.toLowerCase().startsWith(q));
-      results = [...exact, ...starts, ...contains].slice(0, 50);
-    } else {
-      results = dictEntries.filter(e => e.sin.includes(q)).slice(0, 50);
-    }
-
-    if (!results.length) {
-      container.innerHTML = '<p class="dict-empty">No matches found.</p>';
-      return;
-    }
-
-    container.innerHTML = results.map(r => `
-      <div class="dict-row">
-        <div class="dict-eng">${highlightMatch(r.eng, q, dictDirection === 'en')}</div>
-        <div class="dict-sin">${highlightMatch(r.sin, q, dictDirection === 'si')}</div>
+  function buildConversationGrid() {
+    const grid = document.getElementById('conversation-grid');
+    if (!grid) return;
+    grid.innerHTML = DIALOGS_DATA.map(d => `
+      <div class="topic-card" onclick="App.openConversation('${d.id}')" style="border-top:4px solid ${d.color}">
+        <div class="card-icon">${d.icon}</div>
+        <div class="card-title">${d.title}</div>
+        <div class="card-count">${d.lines.length} lines</div>
       </div>`).join('');
   }
 
-  function highlightMatch(text, query, doHighlight) {
-    if (!doHighlight || !query) return text;
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+  function openConversation(dialogId) {
+    const dialog = DIALOGS_DATA.find(d => d.id === dialogId);
+    if (!dialog) return;
+    setText('conversation-detail-title', `${dialog.icon} ${dialog.title}`);
+    const container = document.getElementById('conversation-lines');
+    const speakers = [...new Set(dialog.lines.map(l => l.speaker))];
+    const firstSpeaker = speakers[0];
+    const speakerEmojis = {
+      'A': '🧑', 'B': '👩',
+      'Customer': '🛒', 'Barista': '☕',
+      'Staff': '🏪', 'Driver': '🚌',
+      'Pharmacist': '💊'
+    };
+
+    container.innerHTML = dialog.lines.map(line => {
+      const isLeft = line.speaker === firstSpeaker;
+      const emoji = speakerEmojis[line.speaker] || '👤';
+      const escapedSinhala = line.sinhala.replace(/'/g, "\\'");
+      const audioPath = line.audio || '';
+      return `
+        <div class="dialog-line ${isLeft ? 'dialog-left' : 'dialog-right'}">
+          <div class="dialog-avatar">${emoji}</div>
+          <div class="dialog-bubble">
+            <div class="dialog-speaker">${line.speaker}</div>
+            <div class="dialog-sinhala">${line.sinhala}</div>
+            <div class="dialog-roman">${line.roman}</div>
+            <div class="dialog-english">${line.english}</div>
+            <button class="dialog-audio-btn" onclick="event.stopPropagation(); App.speakSinhala('${escapedSinhala}'${audioPath ? ", 'assets/audio/" + audioPath + "'" : ', null'})">🔊</button>
+          </div>
+        </div>`;
+    }).join('');
+    showScreen('screen-conversation-detail');
+    SRS.logActivity(`🗣️ Opened conversation: ${dialog.title}`);
   }
 
   /* ────────────────────────────────────────────────────────
@@ -828,8 +827,7 @@ const App = (() => {
     resetProgress,
     openPhraseCategory,
     searchPhrasesInDetail,
-    searchDictionary,
-    setDictDirection,
+    openConversation,
     showAlphabetTab,
     speakSinhala
   };
