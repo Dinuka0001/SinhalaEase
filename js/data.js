@@ -13,14 +13,14 @@ const VOCAB_DATA = [
     icon: "👋",
     color: "#5B4FCF",
     words: [
-      { id:"g01", sinhala:"ආයුබෝවන්",    roman:"Āyubōvan",       english:"Hello / Welcome",    emoji:"👋", image:"greetings/hello.png",       audio:"greetings/hello.mp3",       example:"ආයුබෝවන්! කොහොමද?" },
-      { id:"g02", sinhala:"සුභ උදෑසනක්",  roman:"Subha udæsanak", english:"Good morning",       emoji:"🌅", image:"greetings/good-morning.png", audio:"greetings/good-morning.mp3", example:"සුභ උදෑසනක් ගෙදරට!" },
+      { id:"g01", sinhala:"ආයුබෝවන්",    roman:"Āyubōvan",       english:"Hello / Welcome",    emoji:"👋", image:"greetings/hello.png",       audio:"greetings/hello.mp3",       example:"" },
+      { id:"g02", sinhala:"සුභ උදෑසනක්",  roman:"Subha udæsanak", english:"Good morning",       emoji:"🌅", image:"greetings/good-morning.png", audio:"greetings/good-morning.mp3", example:"" },
       { id:"g03", sinhala:"සුභ සන්ධ්‍යාවක්",roman:"Subha sandhyāvak",english:"Good evening",     emoji:"🌇", image:"greetings/good-evening.png", audio:"greetings/good-evening.mp3", example:"" },
-      { id:"g04", sinhala:"ගිහින් එන්නම්",roman:"Gihin ennam",    english:"Goodbye",            emoji:"👋", image:"greetings/goodbye.png",      audio:"greetings/goodbye.mp3",      example:"ගිහින් එන්නම්, හොඳෙ?" },
-      { id:"g05", sinhala:"ස්තූතියි",     roman:"Stūtiyi",        english:"Thank you",          emoji:"🙏", image:"greetings/thank-you.png",    audio:"greetings/thank-you.mp3",    example:"ගොඩක් ස්තූතියි!" },
+      { id:"g04", sinhala:"ගිහින් එන්නම්",roman:"Gihin ennam",    english:"Goodbye",            emoji:"👋", image:"greetings/goodbye.png",      audio:"greetings/goodbye.mp3",      example:"" },
+      { id:"g05", sinhala:"ස්තූතියි",     roman:"Stūtiyi",        english:"Thank you",          emoji:"🙏", image:"greetings/thank-you.png",    audio:"greetings/thank-you.mp3",    example:"" },
       { id:"g06", sinhala:"කමක් නෑ",      roman:"Kamak nǣ",       english:"You're welcome",     emoji:"😊", image:"greetings/welcome.png",      audio:"greetings/youre-welcome.mp3",example:"" },
-      { id:"g07", sinhala:"සමාවෙන්න",     roman:"Samāvenna",      english:"Sorry / Excuse me",  emoji:"😔", image:"greetings/sorry.png",        audio:"greetings/sorry.mp3",        example:"සමාවෙන්න, මං දැනගෙන නෑ." },
-      { id:"g08", sinhala:"කොහොමද?",      roman:"Kohomada?",      english:"How are you?",       emoji:"🤔", image:"greetings/how-are-you.png",  audio:"greetings/how-are-you.mp3",  example:"ඔයාට කොහොමද?" },
+      { id:"g07", sinhala:"සමාවෙන්න",     roman:"Samāvenna",      english:"Sorry / Excuse me",  emoji:"😔", image:"greetings/sorry.png",        audio:"greetings/sorry.mp3",        example:"" },
+      { id:"g08", sinhala:"කොහොමද?",      roman:"Kohomada?",      english:"How are you?",       emoji:"🤔", image:"greetings/how-are-you.png",  audio:"greetings/how-are-you.mp3",  example:"" },
       { id:"g09", sinhala:"හොඳින් ඉන්නවා",roman:"Hondin innawā",  english:"I am fine",          emoji:"👍", image:"greetings/fine.png",         audio:"greetings/im-fine.mp3",      example:"" },
       { id:"g10", sinhala:"හෙට හමුවෙමු",  roman:"Heta hamuwemu",  english:"See you tomorrow",   emoji:"📅", image:"greetings/see-you.png",      audio:"greetings/see-you-tomorrow.mp3",example:"" },
       { id:"g11", sinhala:"සුභ රාත්‍රියක්", roman:"Subha rāthriyak",english:"Good night",         emoji:"🌙", image:"greetings/good-night.png",   audio:"greetings/good-night.mp3",   example:"" },
@@ -77,9 +77,9 @@ const VOCAB_DATA = [
     icon: "🗓️",
     color: "#27AE60",
     words: [
-      { id:"t01", sinhala:"අද",         roman:"Ada",         english:"Today",       emoji:"📅", image:"time/today.png",     audio:"time/today.mp3",     example:"අද සතුරාදා." },
-      { id:"t02", sinhala:"ඊයේ",        roman:"Īyē",         english:"Yesterday",   emoji:"⏮️", image:"time/yesterday.png", audio:"time/yesterday.mp3", example:"ඊයේ හොඳ දවසක්." },
-      { id:"t03", sinhala:"හෙට",        roman:"Heta",        english:"Tomorrow",    emoji:"⏭️", image:"time/tomorrow.png",  audio:"time/tomorrow.mp3",  example:"හෙට පාසල." },
+      { id:"t01", sinhala:"අද",         roman:"Ada",         english:"Today",       emoji:"📅", image:"time/today.png",     audio:"time/today.mp3",     example:"" },
+      { id:"t02", sinhala:"ඊයේ",        roman:"Īyē",         english:"Yesterday",   emoji:"⏮️", image:"time/yesterday.png", audio:"time/yesterday.mp3", example:"" },
+      { id:"t03", sinhala:"හෙට",        roman:"Heta",        english:"Tomorrow",    emoji:"⏭️", image:"time/tomorrow.png",  audio:"time/tomorrow.mp3",  example:"" },
       { id:"t04", sinhala:"උදෑසන",      roman:"Udæsana",     english:"Morning",     emoji:"🌅", image:"time/morning.png",   audio:"time/morning.mp3",   example:"" },
       { id:"t05", sinhala:"සවස",        roman:"Sawasa",      english:"Evening",     emoji:"🌇", image:"time/evening.png",   audio:"time/evening.mp3",   example:"" },
       { id:"t06", sinhala:"රාත්‍රිය",  roman:"Rāthriya",   english:"Night",       emoji:"🌃", image:"time/night.png",     audio:"time/night.mp3",     example:"" },
@@ -141,7 +141,7 @@ const VOCAB_DATA = [
     icon: "👨‍👩‍👧",
     color: "#9B59B6",
     words: [
-      { id:"f01", sinhala:"අම්මා",   roman:"Ammā",    english:"Mother",       emoji:"👩", image:"family/mother.png",      audio:"family/mother.mp3",      example:"මගේ අම්මා ගුරුවරියකි." },
+      { id:"f01", sinhala:"අම්මා",   roman:"Ammā",    english:"Mother",       emoji:"👩", image:"family/mother.png",      audio:"family/mother.mp3",      example:"" },
       { id:"f02", sinhala:"තාත්තා",  roman:"Thāttā",  english:"Father",       emoji:"👨", image:"family/father.png",      audio:"family/father.mp3",      example:"" },
       { id:"f03", sinhala:"සහෝදරයා",roman:"Sahōdarayā",english:"Brother",    emoji:"👦", image:"family/brother.png",     audio:"family/brother.mp3",     example:"" },
       { id:"f04", sinhala:"සහෝදරිය",roman:"Sahōdariya",english:"Sister",     emoji:"👧", image:"family/sister.png",      audio:"family/sister.mp3",      example:"" },
@@ -306,7 +306,7 @@ const VOCAB_DATA = [
     icon: "🙋",
     color: "#8E44AD",
     words: [
-      { id:"pr01", sinhala:"මම",    roman:"Mama",    english:"I / Me",      emoji:"🙋", image:"pronouns/i.png",   audio:"pronouns/i.mp3",   example:"මම ශිෂ්‍යයෙකු." },
+      { id:"pr01", sinhala:"මම",    roman:"Mama",    english:"I / Me",      emoji:"🙋", image:"pronouns/i.png",   audio:"pronouns/i.mp3",   example:"" },
       { id:"pr02", sinhala:"ඔයා",   roman:"Oyā",     english:"You",         emoji:"🫵", image:"pronouns/you.png", audio:"pronouns/you.mp3", example:"" },
       { id:"pr03", sinhala:"ඔහු",   roman:"Ohu",     english:"He",          emoji:"👨", image:"pronouns/he.png",  audio:"pronouns/he.mp3",  example:"" },
       { id:"pr04", sinhala:"ඇය",    roman:"Æya",     english:"She",         emoji:"👩", image:"pronouns/she.png", audio:"pronouns/she.mp3", example:"" },
@@ -328,7 +328,7 @@ const VOCAB_DATA = [
     icon: "👁️",
     color: "#F1C40F",
     words: [
-      { id:"bp01", sinhala:"ඔළුව",   roman:"Oluwa",   english:"Head",    emoji:"👤", image:"body/head.png",    audio:"body/head.mp3",    example:"මගේ ඔළුව රිදෙනවා." },
+      { id:"bp01", sinhala:"ඔළුව",   roman:"Oluwa",   english:"Head",    emoji:"👤", image:"body/head.png",    audio:"body/head.mp3",    example:"" },
       { id:"bp02", sinhala:"අත",     roman:"Atha",    english:"Hand",    emoji:"🤚", image:"body/hand.png",    audio:"body/hand.mp3",    example:"" },
       { id:"bp03", sinhala:"කකුල",   roman:"Kakula",  english:"Leg",     emoji:"🦵", image:"body/leg.png",     audio:"body/leg.mp3",     example:"" },
       { id:"bp04", sinhala:"ඇස",     roman:"Æsa",     english:"Eye",     emoji:"👁️", image:"body/eye.png",     audio:"body/eye.mp3",     example:"" },
@@ -337,7 +337,7 @@ const VOCAB_DATA = [
       { id:"bp07", sinhala:"කන",     roman:"Kana",    english:"Ear",     emoji:"👂", image:"body/ear.png",     audio:"body/ear.mp3",     example:"" },
       { id:"bp08", sinhala:"කොණ්ඩය", roman:"Kondaya", english:"Hair",    emoji:"💇", image:"body/hair.png",    audio:"body/hair.mp3",    example:"" },
       { id:"bp09", sinhala:"දත",     roman:"Datha",   english:"Tooth",   emoji:"🦷", image:"body/tooth.png",   audio:"body/tooth.mp3",   example:"" },
-      { id:"bp10", sinhala:"බඩ",     roman:"Bada",    english:"Stomach", emoji:"🤰", image:"body/stomach.png", audio:"body/stomach.mp3", example:"මට බඩගිනියි." },
+      { id:"bp10", sinhala:"බඩ",     roman:"Bada",    english:"Stomach", emoji:"🤰", image:"body/stomach.png", audio:"body/stomach.mp3", example:"" },
       { id:"bp11", sinhala:"බෙල්ල",   roman:"Bella",   english:"Neck",    emoji:"🧣", image:"body/neck.png",    audio:"body/neck.mp3",    example:"" },
       { id:"bp12", sinhala:"උරහිස",  roman:"Urahisa", english:"Shoulder",emoji:"🤷", image:"body/shoulder.png",audio:"body/shoulder.mp3",example:"" },
       { id:"bp13", sinhala:"පපුව",   roman:"Papuwa",  english:"Chest",   emoji:"👕", image:"body/chest.png",   audio:"body/chest.mp3",   example:"" },
@@ -488,8 +488,8 @@ const VOCAB_DATA = [
     icon: "⚡",
     color: "#FF6B35",
     words: [
-      { id:"v01", sinhala:"ඉන්නවා",   roman:"Innawā",   english:"To be / stay", emoji:"🧍", image:"verbs/be.png",    audio:"verbs/be.mp3",    example:"මම ගෙදර ඉන්නවා." },
-      { id:"v02", sinhala:"යනවා",     roman:"Yanawā",   english:"To go",        emoji:"🚶", image:"verbs/go.png",    audio:"verbs/go.mp3",    example:"මම පාසලට යනවා." },
+      { id:"v01", sinhala:"ඉන්නවා",   roman:"Innawā",   english:"To be / stay", emoji:"🧍", image:"verbs/be.png",    audio:"verbs/be.mp3",    example:"" },
+      { id:"v02", sinhala:"යනවා",     roman:"Yanawā",   english:"To go",        emoji:"🚶", image:"verbs/go.png",    audio:"verbs/go.mp3",    example:"" },
       { id:"v03", sinhala:"එනවා",     roman:"Enawā",    english:"To come",      emoji:"🏃", image:"verbs/come.png",  audio:"verbs/come.mp3",  example:"" },
       { id:"v04", sinhala:"කනවා",     roman:"Kanawā",   english:"To eat",       emoji:"🍽️", image:"verbs/eat.png",   audio:"verbs/eat.mp3",   example:"" },
       { id:"v05", sinhala:"බොනවා",    roman:"Bonawā",   english:"To drink",     emoji:"🥤", image:"verbs/drink.png", audio:"verbs/drink.mp3", example:"" },
@@ -520,9 +520,9 @@ const VOCAB_DATA = [
     icon: "✨",
     color: "#16A085",
     words: [
-      { id:"adj01", sinhala:"ලොකු",    roman:"Loku",     english:"Big",        emoji:"⬆️", image:"adjectives/big.png",       audio:"adjectives/big.mp3",       example:"ලොකු ගෙයක්." },
+      { id:"adj01", sinhala:"ලොකු",    roman:"Loku",     english:"Big",        emoji:"⬆️", image:"adjectives/big.png",       audio:"adjectives/big.mp3",       example:"" },
       { id:"adj02", sinhala:"පොඩි",    roman:"Podi",     english:"Small",      emoji:"⬇️", image:"adjectives/small.png",     audio:"adjectives/small.mp3",     example:"" },
-      { id:"adj03", sinhala:"හොඳ",     roman:"Honda",    english:"Good",       emoji:"✅", image:"adjectives/good.png",      audio:"adjectives/good.mp3",      example:"හොඳ ළමයෙක්." },
+      { id:"adj03", sinhala:"හොඳ",     roman:"Honda",    english:"Good",       emoji:"✅", image:"adjectives/good.png",      audio:"adjectives/good.mp3",      example:"" },
       { id:"adj04", sinhala:"නරක",     roman:"Naraka",   english:"Bad",        emoji:"❌", image:"adjectives/bad.png",       audio:"adjectives/bad.mp3",       example:"" },
       { id:"adj05", sinhala:"රස්නේ",   roman:"Rasnē",    english:"Hot",        emoji:"🔥", image:"adjectives/hot.png",       audio:"adjectives/hot.mp3",       example:"" },
       { id:"adj06", sinhala:"සීතල",    roman:"Sīthala",  english:"Cold",       emoji:"❄️", image:"adjectives/cold.png",      audio:"adjectives/cold.mp3",      example:"" },
@@ -552,7 +552,7 @@ const VOCAB_DATA = [
     icon: "❓",
     color: "#E74C3C",
     words: [
-      { id:"q01", sinhala:"මොකක්ද",  roman:"Mokakda",   english:"What",   emoji:"❓", image:"questions/what.png",  audio:"questions/what.mp3",  example:"ඒ මොකක්ද?" },
+      { id:"q01", sinhala:"මොකක්ද",  roman:"Mokakda",   english:"What",   emoji:"❓", image:"questions/what.png",  audio:"questions/what.mp3",  example:"" },
       { id:"q02", sinhala:"කොහේද",   roman:"Kohēda",    english:"Where",  emoji:"📍", image:"questions/where.png", audio:"questions/where.mp3", example:"" },
       { id:"q03", sinhala:"කවදාද",   roman:"Kawadāda",  english:"When",   emoji:"🕒", image:"questions/when.png",  audio:"questions/when.mp3",  example:"" },
       { id:"q04", sinhala:"කවුද",    roman:"Kawuda",    english:"Who",    emoji:"👤", image:"questions/who.png",   audio:"questions/who.mp3",   example:"" },
@@ -894,3 +894,4 @@ const SINHALA_ALPHABET = {
     { char:"෯",  roman:"9",  name:"Nine (Nawaya)" }
   ]
 };
+
